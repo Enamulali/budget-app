@@ -7,18 +7,23 @@ import Header from "./components/Header";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Nav from "./components/Nav";
+import Register from "./components/Register";
 
 function App() {
   return (
     <div>
       <Header />
-      {window.location.pathname === "/login" ? null : <Nav />}
+      {window.location.pathname === "/login" ||
+      window.location.pathname === "/register" ? null : (
+        <Nav />
+      )}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/categories" element={<Categories />} />
         <Route path="/add" element={<Add />} />
         <Route path="/list" element={<List />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </div>
   );

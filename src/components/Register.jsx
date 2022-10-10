@@ -1,26 +1,30 @@
 import React, { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase-config";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
-  const [loginEmail, setLoginEmail] = useState("");
-  const [loginPassword, setLoginPassword] = useState("");
+const Register = () => {
+  const [registerEmail, setRegisterEmail] = useState("");
+  const [registerPassword, setRegisterPassword] = useState("");
   const [currentUser, setCurrentUser] = useState({});
 
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    signInWithEmailAndPassword(auth, loginEmail, loginPassword)
+  const handleRegister = () => {
+    createUserWithEmailAndPassword(auth, registerEmail, registerPassword)
       .then((user) => {
         setCurrentUser(user);
         navigate("/");
       })
       .catch((err) => {
-        //TODO replace w custom error alerts
-        alert(err.code);
+        console.log(err.code);
+        err.code === "auth/email-already-in-use"
+          ? alert("There is already an account associated with this email")
+          : alert(err.code);
       });
   };
+
+  console.log(currentUser);
 
   return (
     <>
@@ -30,7 +34,7 @@ const Login = () => {
           <input
             type="email"
             onChange={(e) => {
-              setLoginEmail(e.target.value);
+              setRegisterEmail(e.target.value);
             }}
           />
         </p>
@@ -39,14 +43,14 @@ const Login = () => {
           <input
             type="password"
             onChange={(e) => {
-              setLoginPassword(e.target.value);
+              setRegisterPassword(e.target.value);
             }}
           />
         </p>
-        <button onClick={handleLogin}>Login</button>
+        <button onClick={handleRegister}>Register</button>
       </div>
     </>
   );
 };
 
-export default Login;
+export default Register;
