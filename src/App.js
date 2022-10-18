@@ -11,7 +11,7 @@ import Register from "./components/Register";
 
 function App() {
   return (
-    <div>
+    <div className="App">
       <Header />
       {window.location.pathname === "/login" ||
       window.location.pathname === "/register" ? null : (
