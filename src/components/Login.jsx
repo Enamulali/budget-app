@@ -17,34 +17,41 @@ const Login = () => {
         navigate("/");
       })
       .catch((err) => {
-        //TODO replace w custom error alerts
-        alert(err.code);
+        console.log(err.code);
+        err.code === "auth/wrong-password"
+          ? alert("Incorrect password")
+          : alert(err.code);
       });
   };
 
   return (
     <>
-      <div className="form-container">
-        <p>
-          email
+      <form>
+        <div className="email">
+          <p>email</p>
           <input
             type="email"
             onChange={(e) => {
               setLoginEmail(e.target.value);
             }}
           />
-        </p>
-        <p>
-          password
+        </div>
+        <div className="email">
+          <p>password</p>
           <input
             type="password"
             onChange={(e) => {
               setLoginPassword(e.target.value);
             }}
           />
-        </p>
-        <button onClick={handleLogin}>Login</button>
-      </div>
+        </div>
+        <button
+          onClick={handleLogin}
+          className="px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2"
+        >
+          Login
+        </button>
+      </form>
     </>
   );
 };
